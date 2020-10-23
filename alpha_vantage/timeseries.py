@@ -23,6 +23,25 @@ class TimeSeries(av):
         """
         _FUNCTION_KEY = "TIME_SERIES_INTRADAY"
         return _FUNCTION_KEY, "Time Series ({})".format(interval), 'Meta Data'
+    
+    @av._output_format
+    @av._call_api_on_func
+    def get_intraday_extended(self, symbol, interval='15min', slice='year1month1', adjusted=True):
+        """ Return extended intraday time series (2 years of minute level data) 
+        in two json objects as data and meta_data. It raises ValueError when problems arise
+
+        Keyword Arguments:
+            symbol:  the symbol for the equity we want to get its data
+            interval:  time interval between two conscutive values,
+                supported values are '1min', '5min', '15min', '30min', '60min'
+                (default '15min')
+            slice: two years of minute level data which are divided into 24 slices 
+            specified by the year and month where year1month1 is the most recent 30 days
+            and year2month12 is the farthest from today (default: 'year1month1')
+            adjusted: if data is to be adjusted for splits/dividends or not (default: True)
+        """
+        _FUNCTION_KEY = "TIME_SERIES_INTRADAY_EXTENDED"
+        return _FUNCTION_KEY, "Time Series ({})".format(interval), 'Meta Data'
 
     @av._output_format
     @av._call_api_on_func
